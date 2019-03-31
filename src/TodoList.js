@@ -16,12 +16,13 @@ export default class TodoList extends Component {
         })
     }
     handleAdd=(e)=>{
-        if (e.keyCode === 13) {
-            store.dispatch({
-                type: 'add_item',
-                value:e.target.value
-            })
-        }
+        if (e.which !== 13) return;
+        // if (e.keyCode === 13) {
+        store.dispatch({
+            type: 'add_item',
+            value:e.target.value
+        })
+        // }
         e.target.value=''
     }
     handleDec=(index)=>{
@@ -34,7 +35,7 @@ export default class TodoList extends Component {
     render() {
         return (
             <div>
-                <input onKeyDown={this.handleAdd} type="text"/><br/>
+                <input onKeyPress={(e)=>{this.handleAdd(e)}} type="text"/><br/>
                 <ul>
                     {
                         this.state.list.map((item,index)=>(
